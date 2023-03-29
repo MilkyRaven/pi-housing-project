@@ -1,5 +1,6 @@
+import Header from '@/components/Header'
 import Head from 'next/head'
-import styles from '@/styles/Home.module.css'
+import Banner from '@/components/Banner'
 
 
 export default function Home() {
@@ -12,7 +13,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        {/* Header */}
+        <Header></Header>
+        {/* Banner */}
+        <Banner></Banner>
+        {/* Section */}
+        {/* Pull some data from a server - API endpoints */}
+
       </main>
     </>
   )
+}
+
+export async function getStaticProps() {
+  const exploreData = await fetch('')
 }
