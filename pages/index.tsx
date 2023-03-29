@@ -1,9 +1,12 @@
 import Header from '@/components/Header'
 import Head from 'next/head'
 import Banner from '@/components/Banner'
+import HouseCard from '@/components/HouseCard'
+import Footer from '@/components/Footer'
 
 
-export default function Home() {
+export default function Home({ exploreData }) {
+
   return (
     <>
       <Head>
@@ -19,12 +22,26 @@ export default function Home() {
         <Banner></Banner>
         {/* Section */}
         {/* Pull some data from a server - API endpoints */}
-
+        <div className='grid grid-cols-2'>
+          {exploreData?.map(({ _id, title, description }) => (
+            <HouseCard
+              key={_id}
+              title={title}
+              description={description}
+            />
+          ))}
+        </div>
+        <Footer></Footer>
       </main>
     </>
   )
 }
 
 export async function getStaticProps() {
-  const exploreData = await fetch('')
+  const exploreData = await fetch('http://localhost:4000/housing').then((res) => res.json())
+  return {
+    props: {
+      exploreData: exploreData
+    }
+  }
 }
