@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
-import {BsSearch} from 'react-icons/bs'
-import {MdMenu} from 'react-icons/md'
-import {HiUserCircle} from 'react-icons/hi'
+import { BsSearch, BsTypeH1 } from 'react-icons/bs'
+import { MdMenu } from 'react-icons/md'
+import { HiUserCircle } from 'react-icons/hi'
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+import { Calendar } from 'react-date-range';
 type Props = {}
 
 const Header = (props: Props) => {
+    const [searchInput, setSearchInput] = useState('');
+    const [pickDate, setPickDate] = useState(new Date());
+    
+    const handleSelect = (date) => {
+        console.log(date)
+    }
     return (
         <header className='sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10'>
             <div className='relative flex items-center h-10 cursor-pointer my-auto'>
@@ -17,7 +26,10 @@ const Header = (props: Props) => {
                 ></Image>
             </div>
             <div className='flex items-center border-2 rounded-full py-1 px-1'>
-                <input className='flex-grow pl-3 bg-tranparent outline-none' type="text" placeholder='Search' />
+                <input
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    className='flex-grow pl-3 bg-tranparent outline-none' type="text" placeholder='Search' />
                 <BsSearch className='h-3 text-black-200 cursor-pointer mx-3'></BsSearch>
             </div>
             <div className='flex items-center justify-end'>
@@ -26,6 +38,15 @@ const Header = (props: Props) => {
                     <HiUserCircle className='h6 cursor-pointer'></HiUserCircle>
                 </div>
             </div>
+            {searchInput && (
+                <div>
+                    <Calendar
+                    date={new Date()}
+                    minDate={new Date()}
+                    onChange={handleSelect}
+                    ></Calendar>
+                </div>
+            )}
         </header>
     )
 }
