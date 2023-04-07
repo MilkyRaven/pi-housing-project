@@ -7,18 +7,25 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { Calendar } from 'react-date-range';
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 type Props = {}
 
 const Header = (props: Props) => {
     const [searchInput, setSearchInput] = useState('');
     const [pickDate, setPickDate] = useState(new Date());
+    const router = useRouter();
 
     const handleSelect = (date) => {
         console.log(date)
     }
 
     const search = () => {
-
+        router.push({
+            pathname: '/search',
+            query: {
+                location: searchInput,
+            }
+        });
     }
     return (
         <header className='sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10'>
