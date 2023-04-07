@@ -6,14 +6,19 @@ import { HiUserCircle } from 'react-icons/hi'
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { Calendar } from 'react-date-range';
+import Link from 'next/link'
 type Props = {}
 
 const Header = (props: Props) => {
     const [searchInput, setSearchInput] = useState('');
     const [pickDate, setPickDate] = useState(new Date());
-    
+
     const handleSelect = (date) => {
         console.log(date)
+    }
+
+    const search = () => {
+
     }
     return (
         <header className='sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10'>
@@ -39,12 +44,16 @@ const Header = (props: Props) => {
                 </div>
             </div>
             {searchInput && (
-                <div>
+                <div className='flex flex-col col-span-3 mx-auto'>
                     <Calendar
-                    date={new Date()}
-                    minDate={new Date()}
-                    onChange={handleSelect}
+                        date={new Date()}
+                        minDate={new Date()}
+                        onChange={handleSelect}
                     ></Calendar>
+                    <Link
+                        href={'/search'}>
+                        <button onClick={search} className='flex-grow'>Search</button>
+                    </Link>
                 </div>
             )}
         </header>
